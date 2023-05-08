@@ -1,0 +1,31 @@
+  i.account,
+  i.cart {
+    font-size: 2rem;
+  }
+
+  .c-item {
+    height: 400px;
+  }
+
+  .c-img {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .c-cate-img{
+    height: 150px;
+    width: 150px;
+  }
+
+  .cate-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .caption {
+    position: absolute;
+    top: 40%;
+    left: 0;
+    width: 100%;
+  }

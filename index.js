@@ -6,7 +6,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-    res.send('Hello welcome')
+    res.render('home')
 });
 
 app.listen(port, () => {
