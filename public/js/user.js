@@ -1,39 +1,31 @@
-const users = [
-{
-    id: 1,
-    name: 'John',
-    username: 'JohnCena',
-    password: 'youcantseeme',
-    email: 'johncena@user.com',
-    role: 'user'
-},
+const mongoose = require('mongoose');
 
-{
-    id: 2,
-    name: 'Rump',
-    username: 'RumpBach',
-    password: 'rumrum123',
-    email: 'rumbach@user.com',
-    role: 'vendoe'
-},
+const userSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        maxlength: 50,
+    },
+    username: {
+        type: String,
+        required: true,
+        lowecase: true,
+        maxlength: 24
+    },
+    password: {
+        type: String,
+        required: true,
+        maxlength: 24,
+    },
+    role: {
+        type: Number,
+        default: 0,
+        min: 0
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    }
+});
 
-{
-    id: 3,
-    name: 'Tom',
-    username: 'TomSean',
-    password: 'tomtom123',
-    email: 'tomsean@user.com',
-    role: 'shipper'
-},
-
-{
-    id: 4,
-    name: 'Admin',
-    username: 'Admin',
-    password: 'admin123',
-    email: 'Admin@user.com',
-    role: 'admin'
-}
-]
-
-module.exports = users;
+module.exports = mongoose.model('User', userSchema)
