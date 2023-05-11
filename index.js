@@ -4,8 +4,6 @@ const mongoose = require('mongoose');
 const port = 3000;
 const MONGO_URL_K = 'mongodb+srv://K:passpass@e-commerceas1.bb89mj6.mongodb.net/?retryWrites=true&w=majority';
 const errormes = 'Database Connection Failed!';
-const userSchema = require('./model/user');
-const User = require('./model/user');
 const { authRegister, authLogin, authRoleVendor, authRoleShipper } = require('./model/Auth');
 
 //connect to mongodb
