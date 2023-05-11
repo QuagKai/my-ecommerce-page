@@ -4,18 +4,19 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        maxlength: 50,
+        maxlength: 50
     },
     username: {
         type: String,
         required: true,
         lowecase: true,
+        unique: true,
         maxlength: 24
     },
     password: {
         type: String,
         required: true,
-        maxlength: 24,
+        maxlength: 24
     },
     role: {
         type: Number,

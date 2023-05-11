@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 const port = 3000;
 const MONGO_URL_K = 'mongodb+srv://K:passpass@e-commerceas1.bb89mj6.mongodb.net/?retryWrites=true&w=majority';
 const errormes = 'Database Connection Failed!';
-const userSchema = require('./public/js/user');
-const User = require('./public/js/user');
-const { authRegister, authLogin, authRoleVendor, authRoleShipper } = require('./public/js/Auth');
+const userSchema = require('./model/user');
+const User = require('./model/user');
+const { authRegister, authLogin, authRoleVendor, authRoleShipper } = require('./model/Auth');
 
 //connect to mongodb
 mongoose.connect(MONGO_URL_K)
@@ -29,6 +29,10 @@ app.post('/signup', authRegister, (req,res) =>{
 app.post('/login', authLogin, (req, res) => {
     res.render('home')
 });
+
+app.get('/logout', (req, res) => {
+    res.redirect('/login');
+})
 
 //render homepage for lh:3000
 app.get('/', (req, res) => {
