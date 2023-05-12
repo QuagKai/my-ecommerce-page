@@ -29,3 +29,10 @@
     left: 0;
     width: 100%;
   }
+
+  .bigger-image {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 20%;
+    width: 60%;
+  }
