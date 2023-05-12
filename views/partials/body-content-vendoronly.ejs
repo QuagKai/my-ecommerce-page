@@ -1,0 +1,262 @@
+<content>
+    <div class="container bg-info">
+      <div class="conatiner bg-danger d-flex">
+        <div class="modalbox">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Create a product
+          </button>
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">Create a product</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/createproduct" class="CreateProductForm align-content-between" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="text" class="form-control mb-3" name="name" placeholder="Name">
+                    <div class="genders mb-3">
+                      <p class="p-0 mb-1 fs-5">Choose a gender</p>
+                      <select class="form-select" name="gender" aria-label="category">
+                        <option selected value="men">Men</option>
+                        <option value="women">Women</option>
+                        <option value="kids">Kids</option>
+                      </select>
+                    </div>
+                    <input type="file" class="form-control mb-3" name="image">
+                    <input type="text" class="form-control mb-3" name="descrip" placeholder="Description">
+                    <input type="number" class="form-control mb-3" name="price" placeholder="Price">
+                    <div class="catergories mb-3">
+                      <p class="p-0 mb-1 fs-5">Choose the category</p>
+                      <select class="form-select" name="category" aria-label="category">
+                        <option selected value="tops">Tops</option>
+                        <option value="pants">Pants</option>
+                        <option value="shoes">Shoes</option>
+                        <option value="accessories">Accessories</option>
+                      </select>
+                    </div>
+                    <input type="text" class="form-control mb-3" name="size" placeholder="Size">
+                    <div class="onsale-products">
+                      <p class="p-0 m-0 fs-5">On sale:</p>
+                      <div class="sale d-flex align-items-center">
+                        <input type="radio" name="onsale" value="true">
+                        <p class="px-1 m-0">Yes</p>
+                      </div>
+                      <div class="notsale d-flex align-items-center">
+                        <input type="radio" name="onsale" value="false">
+                        <p class="px-1 m-0">No</p>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                      </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-group ms-auto">
+          <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Sort by
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end px-2">
+            <li>
+              <label for="Price" class="form-label">Available price</label>
+              <input type="range" class="form-range" min="0" max="100000" id="Price">
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container mt-1 p-1 bg-secondary bg-opacity-25">
+      <div class="container justify-content-start m-0 p-0">
+          <div class="row row-cols-4 g-3 p-2">
+            <div class="col">
+              <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                    content.</p>
+                  <div class="row row-col-2">
+                    <a href="/vendor/product/:id/update" class="col btn btn-primary mx-1">Edit</a>
+                    <a href="/vendor/product/:id/delete" class="col btn btn-primary mx-1">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                    content.</p>
+                  <div class="row row-col-2">
+                    <a href="/vendor/product/:id/update" class="col btn btn-primary mx-1">Edit</a>
+                    <a href="/vendor/product/:id/delete" class="col btn btn-primary mx-1">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                    content.</p>
+                  <div class="row row-col-2">
+                    <a href="/vendor/product/:id/update" class="col btn btn-primary mx-1">Edit</a>
+                    <a href="/vendor/product/:id/delete" class="col btn btn-primary mx-1">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                    content.</p>
+                  <div class="row row-col-2">
+                    <a href="/vendor/product/:id/update" class="col btn btn-primary mx-1">Edit</a>
+                    <a href="/vendor/product/:id/delete" class="col btn btn-primary mx-1">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                    content.</p>
+                  <div class="row row-col-2">
+                    <a href="/vendor/product/:id/update" class="col btn btn-primary mx-1">Edit</a>
+                    <a href="/vendor/product/:id/delete" class="col btn btn-primary mx-1">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                    content.</p>
+                  <div class="row row-col-2">
+                    <a href="/vendor/product/:id/update" class="col btn btn-primary mx-1">Edit</a>
+                    <a href="/vendor/product/:id/delete" class="col btn btn-primary mx-1">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                    content.</p>
+                  <div class="row row-col-2">
+                    <a href="/vendor/product/:id/update" class="col btn btn-primary mx-1">Edit</a>
+                    <a href="/vendor/product/:id/delete" class="col btn btn-primary mx-1">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                    content.</p>
+                  <div class="row row-col-2">
+                    <a href="/vendor/product/:id/update" class="col btn btn-primary mx-1">Edit</a>
+                    <a href="/vendor/product/:id/delete" class="col btn btn-primary mx-1">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                    content.</p>
+                  <div class="row row-col-2">
+                    <a href="/vendor/product/:id/update" class="col btn btn-primary mx-1">Edit</a>
+                    <a href="/vendor/product/:id/delete" class="col btn btn-primary mx-1">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                    content.</p>
+                  <div class="row row-col-2">
+                    <a href="/vendor/product/:id/update" class="col btn btn-primary mx-1">Edit</a>
+                    <a href="/vendor/product/:id/delete" class="col btn btn-primary mx-1">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                    content.</p>
+                  <div class="row row-col-2">
+                    <a href="/vendor/product/:id/update" class="col btn btn-primary mx-1">Edit</a>
+                    <a href="/vendor/product/:id/delete" class="col btn btn-primary mx-1">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                    content.</p>
+                  <div class="row row-col-2">
+                    <a href="/vendor/product/:id/update" class="col btn btn-primary mx-1">Edit</a>
+                    <a href="/vendor/product/:id/delete" class="col btn btn-primary mx-1">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                    content.</p>
+                  <div class="row row-col-2">
+                    <a href="/vendor/product/:id/update" class="col btn btn-primary mx-1">Edit</a>
+                    <a href="/vendor/product/:id/delete" class="col btn btn-primary mx-1">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</content>

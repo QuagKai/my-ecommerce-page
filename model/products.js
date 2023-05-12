@@ -5,6 +5,14 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    gender: {
+        type: String,
+        enum: ['men', 'women', 'kids'],
+        default: 'all'
+    },
+    image: {
+        type: String
+    },
     descrip: {
         type: String,
         required: true
@@ -26,7 +34,11 @@ const productSchema = new mongoose.Schema({
     onsale: {
         type: Boolean,
         default: true,
+    },
+    creator: {
+        type: String,
+        default: 'k'
     }
 });
 
-module.exports = mongoose.model('Products', productSchema)
+module.exports = mongoose.model('Products', productSchema);
