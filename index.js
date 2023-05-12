@@ -13,11 +13,11 @@ mongoose.connect(MONGO_URL_K)
 .then(() => console.log('Database Connection Sucessfull!'))
 .catch((error) => console.log(errormes));
 
-//set up for ejs
+//set up for ejs and express
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
-//setup for mutler
+// setup for mutler
 var storage = multer.diskStorage({
     destination : (req, file, cb) => {
         if( file.mimetype === 'image/jpg'||
@@ -71,8 +71,8 @@ app.get('/login', (req, res) => {
 
 app.get('/vendoronly', (req, res) => {
     Products.find()
-    .then((product) => {
-        res.render('vendoronly', {product: product});
+    .then((products) => {
+        res.render('vendoronly', {products: products});
     })
     .catch((error) => console.log('Error'));
 });
@@ -96,6 +96,7 @@ app.post('/createproduct', upload.single('image'), async(req,res) => {
     .then(() => res.redirect('vendoronly'))
     .catch(() => res.redirect('/'));
 });
+
 
 //listen to from the host
 app.listen(port, () => {
