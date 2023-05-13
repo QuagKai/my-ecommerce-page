@@ -1,5 +1,6 @@
 const express = require('express');
-const multer = require('multer');
+const upload = require('./model/uploadImage');
+const createProducts = require('./model/uploadProducts');
 const mongoose = require('mongoose');
 const Products = require('./model/products');
 const app = express();
@@ -38,23 +39,7 @@ app.get('/all-products', (req, res) => {
     res.render('all-products')
 });
 
-const storage = multer.diskStorage({
-    destination : (req, file, cb) => {
-        if( file.mimetype === 'image/jpg'||
-            file.mimetype === 'image/png'||
-            file.mimetype === 'image/jpeg') {
-                cb(null, 'public/images');
-        } else{
-            cb(new Error('not image', false))
-        }
-    },
-    filename : (req, file, cb) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, uniqueSuffix + '-' + file.originalname);
-    }
-})
 
-const upload = multer({ storage: storage });
 
 app.get('/vendoronly', (req, res) => {
     Products.find()
@@ -64,24 +49,7 @@ app.get('/vendoronly', (req, res) => {
     .catch((error) => console.log('Error'));
 });
 
-app.post('/createproduct', upload.single('image'), async(req,res) => {
-    const newProduct = {
-        name: req.body.name,
-        gender: req.body.gender,
-        descrip: req.body.descrip,
-        image: {
-            data: req.file.filename,
-            contentType: 'image/png'
-        },
-        price: req.body.price,
-        category: req.body.category,
-        size: req.body.size,
-        onsale: req.body.onsale
-    }
-
-    await Products.create(newProduct)
-    .then(() => res.redirect('vendoronly'))
-    .catch(() => res.redirect('/'));
+app.post('/createproduct', upload, createProducts, (req,res) => {
 });
 
 app.listen(port, () => {
