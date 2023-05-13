@@ -17,6 +17,14 @@ app.get('/details', (req, res) => {
     res.render('details')
 });
 
+app.get('/signup', (req, res) => {
+    res.render('signup')
+});
+
+app.get('/all-products', (req, res) => {
+    res.render('all-products')
+});
+
 app.listen(port, () => {
     console.log(`Listening to port: ${port}`)
 });
