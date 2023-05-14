@@ -13,6 +13,7 @@ const { authRegister, authLogin, authRoleVendor, authRoleShipper } = require('./
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({extended:true}));
+app.use(express.json());
 
 //connect to mongodb
 mongoose.connect(MONGO_URL_K)

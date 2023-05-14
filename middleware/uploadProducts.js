@@ -16,7 +16,7 @@ const uploadProducts = async(req, res, next) => {
     }
     await Products.create(newProduct)
     .then(() => res.redirect('vendoronly'))
-    .catch(() => res.redirect('/'));
+    .catch(() => res.redirect('vendoronly'));
     next();
 };
 
