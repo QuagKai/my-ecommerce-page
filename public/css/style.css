@@ -33,7 +33,8 @@
 
   .card-product-image {
     height: 26rem;
-    width: 18rem;
+    width: auto;
+    padding: 0.5rem;
   }
 
   .card-product-image img{
