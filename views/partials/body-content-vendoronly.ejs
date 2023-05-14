@@ -1,6 +1,6 @@
-<content>
-    <div class="container bg-info">
-      <div class="conatiner bg-danger d-flex">
+<div class="mt-5">
+    <div class="container">
+      <div class="conatiner d-flex">
         <div class="modalbox">
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             Create a product
@@ -70,12 +70,12 @@
         </div>
       </div>
     </div>
-    <div class="container mt-1 p-1 bg-secondary bg-opacity-25">
+    <div class="container mt-1 p-1 bg-body">
       <div class="container justify-content-start m-0 p-0">
-          <div class="row row-cols-4 g-3 p-2">
+          <div class="row row-cols-lg-4 row-cols-sm-2 row-cols-1 g-3 p-2">
             <% products.forEach(function(product){ %>
               <div class="col">
-                <div class="card">
+                <div class="card border-black">
                   <div class="card-product-image mx-auto mb-2">
                     <img 
                     src="/images/<%= product.image.data.toString('ascii') %>"
@@ -109,4 +109,4 @@
         </div>
       </div>
     </div>
-</content>
+  </div>

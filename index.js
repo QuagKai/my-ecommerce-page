@@ -35,12 +35,24 @@ app.get('/signup', (req, res) => {
     res.render('signup')
 });
 
+app.post('/signup', authRegister, (req, res) => {
+    res.redirect('/')
+});
+
 app.get('/login', (req, res) => {
     res.render('login')
 });
 
+app.post('/login', authLogin, (req, res) => {
+    res.redirect('/')
+});
+
 app.get('/all-products', (req, res) => {
     res.render('all-products')
+});
+
+app.get('/vendors', (req, res) => {
+    res.render('vendors')
 });
 
 
