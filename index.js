@@ -35,10 +35,13 @@ app.get('/signup', (req, res) => {
     res.render('signup')
 });
 
+app.get('/login', (req, res) => {
+    res.render('login')
+});
+
 app.get('/all-products', (req, res) => {
     res.render('all-products')
 });
-
 
 
 app.get('/vendoronly', (req, res) => {
