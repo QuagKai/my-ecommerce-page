@@ -8,6 +8,8 @@ const MongoStore = require('connect-mongo');
 //require middleware
 const upload = require('./middleware/uploadImage');
 const createProducts = require('./middleware/uploadProducts');
+const editProducts = require('./middleware/updateProducts');
+const deleteProducts = require('./middleware/deleteProducts');
 const Products = require('./model/products');
 const User = require('./model/user');
 const setLogin = require('./middleware/setLogin');
@@ -80,6 +82,17 @@ app.post('/login', setLogin, authLogin, (req, res) => {
     res.redirect('/');
 });
 
+app.get('/logout', (req, res, next) => {
+    req.session.user = null
+    req.session.save((err) => {
+        if (err) next(err)
+        req.session.regenerate((err) => {
+        if (err) next(err)
+        res.redirect('/')
+        })
+    })
+});
+
 app.get('/all-products', (req, res) => {
     res.render('all-products')
 });
@@ -90,6 +103,7 @@ app.get('/vendors', (req, res) => {
 
 
 app.get('/vendoronly', (req, res) => {
+    // {creator: req.session.user.name}
     Products.find()
     .then((products) => {
         res.render('vendoronly', {products: products});
@@ -98,6 +112,12 @@ app.get('/vendoronly', (req, res) => {
 });
 
 app.post('/createproduct', upload, createProducts, (req,res) => {
+});
+
+app.post('/editproduct/:id', upload, editProducts, (req,res) => {
+});
+
+app.get('/:id/delete', deleteProducts, (req,res) => {
 });
 
 app.listen(port, () => {

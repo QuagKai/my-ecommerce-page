@@ -7,7 +7,7 @@ const productSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        enum: ['men', 'women', 'kids'],
+        enum: ['Men', 'Women', 'Kids'],
         default: 'all'
     },
     image: {
@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema({
     category: {
         type: String,
         require: true,
-        enum: ['tops', 'pants', 'shoes', 'accessories']
+        enum: ['Tops', 'Pants', 'Shoes', 'Accessories']
     },
     size: {
         type: String,

@@ -1,6 +1,6 @@
 const Products = require('../model/products');
 
-const uploadProducts = async(req, res, next) => {
+const updateProducts = async(req, res, next) => {
     const newProduct = {
         name: req.body.name,
         gender: req.body.gender,
@@ -13,12 +13,12 @@ const uploadProducts = async(req, res, next) => {
         category: req.body.category,
         size: req.body.size,
         onsale: req.body.onsales,
-        creator: req.session.user.name
     }
-    await Products.create(newProduct)
-    .then(() => res.redirect('vendoronly'))
-    .catch(() => res.redirect('vendoronly'));
+    console.log(req.params.id);
+    await Products.findByIdAndUpdate( req.params.id, newProduct)
+    .then(() => res.redirect('/vendoronly'))
+    .catch(() => res.redirect('/vendoronly'));
     next();
 };
 
-module.exports = uploadProducts
+module.exports = updateProducts
