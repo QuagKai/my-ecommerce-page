@@ -1,13 +1,18 @@
 const User = require('../model/user')
+const bcrypt = require('bcrypt');
+const setLogin = require('./setLogin');
 
 const authRegister = async (req, res, next) => {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    
     const data = {
         name:req.body.name,
         username:req.body.username,
-        password:req.body.password
+        password:hashedPassword
     }
     await User.insertMany([data])
-    next()
+
+    setLogin(req, res, next);
 
 };
 
@@ -32,7 +37,7 @@ const authLogin = async (req, res, next) => {
         const check = await User.findOne({
                 username:req.body.username
         })
-        if(check.password === req.body.password) {
+        if(bcrypt.compare(check.password, req.body.password)) {
             next()
         } else {
             res.send('Wrong password')
