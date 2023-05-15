@@ -68,6 +68,18 @@ app.get('/signup', (req, res) => {
     res.render('signup')
 });
 
+app.get('/shipperhub', (req, res) => {
+    res.render('shipperhub')
+});
+
+app.get('/shipperhub/storage1', (req, res) => {
+    res.render('storage1')
+});
+
+app.get('/shipperhub/storage2', (req, res) => {
+    res.render('storage2')
+});
+
 app.post('/signup', authRegister, (req, res) => {
     console.log(req.session)
     res.redirect('/')
