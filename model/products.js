@@ -38,7 +38,6 @@ const productSchema = new mongoose.Schema({
     },
     creator: {
         type: String,
-        default: 'k'
     }
 });
 

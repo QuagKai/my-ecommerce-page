@@ -1,8 +1,8 @@
 const User = require('../model/user')
 const bcrypt = require('bcrypt');
+const setLogin = require('./setLogin');
 
 const authRegister = async (req, res, next) => {
-    const bodyPassword = req.body.password;
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     
     const data = {
@@ -11,7 +11,8 @@ const authRegister = async (req, res, next) => {
         password:hashedPassword
     }
     await User.insertMany([data])
-    next()
+
+    setLogin(req, res, next);
 
 };
 
