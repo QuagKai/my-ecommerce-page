@@ -106,7 +106,11 @@ app.get('/logout', (req, res, next) => {
 });
 
 app.get('/all-products', (req, res) => {
-    res.render('all-products')
+    Products.find()
+    .then((products) => {
+        res.render('all-products', {products: products});
+    })
+    .catch((error) => console.log('Error'));
 });
 
 app.get('/vendors', (req, res) => {
@@ -116,7 +120,7 @@ app.get('/vendors', (req, res) => {
 
 app.get('/vendoronly', (req, res) => {
     // {creator: req.session.user.name}
-    Products.find()
+    Products.find({creator: req.session.user.name})
     .then((products) => {
         res.render('vendoronly', {products: products});
     })
