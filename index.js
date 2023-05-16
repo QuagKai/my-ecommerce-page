@@ -11,10 +11,11 @@ const createProducts = require('./middleware/uploadProducts');
 const editProducts = require('./middleware/updateProducts');
 const deleteProducts = require('./middleware/deleteProducts');
 const Products = require('./model/products');
-const User = require('./model/user');
 const setLogin = require('./middleware/setLogin');
 // const setSignup = require('./middleware/setSignup');
 const { authRegister, authLogin, authRoleVendor, authRoleShipper } = require('./middleware/Auth');
+const addtoCart = require('./middleware/addtoCart');
+const Cart = require('./model/carts')
 
 //set up for mongoose
 const port = 3000;
@@ -36,7 +37,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie:{
-    maxAge: 20* 1000, // expire in 20s
+    maxAge: 60* 1000, // expire in 20s
     secure: false, // set false to use the cookie on local host
     httpOnly: true // for more secure
 },
@@ -103,16 +104,27 @@ app.get('/logout', (req, res, next) => {
         res.redirect('/')
         })
     })
+    console.log(Cart.getCart());
 });
 
 app.get('/all-products', (req, res) => {
     res.render('all-products')
 });
 
+app.get('/allproducttest',(req, res) => {
+    Products.find()
+    .then((products) => {
+        res.render('allproducttest', {products: products});
+    })
+    .catch((error) => console.log('Error'));
+})
+
+app.get('/:id/add-to-cart', addtoCart, (req, res) => {
+})
+
 app.get('/vendors', (req, res) => {
     res.render('vendors')
 });
-
 
 app.get('/vendoronly', (req, res) => {
     // {creator: req.session.user.name}
