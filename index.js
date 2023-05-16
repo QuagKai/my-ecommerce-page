@@ -90,7 +90,7 @@ app.get('/login', (req, res) => {
     res.render('login')
 });
 
-app.post('/login', setLogin, authLogin, (req, res) => {
+app.post('/login', authLogin, setLogin, (req, res) => {
     console.log(req.session)
     res.redirect('/');
 });
