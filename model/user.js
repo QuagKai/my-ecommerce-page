@@ -15,13 +15,12 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
-        maxlength: 24
+        required: true
     },
     role: {
-        type: Number,
-        default: 0,
-        min: 0
+        type: String,
+        default: 'customers',
+        enum: ['customers', 'vendors', 'shippers', 'admin']
     },
     createdAt: {
         type: Date,
