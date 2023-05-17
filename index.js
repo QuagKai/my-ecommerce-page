@@ -13,7 +13,7 @@ const deleteProducts = require('./middleware/deleteProducts');
 const Products = require('./model/products');
 const User = require('./model/user');
 const setLogin = require('./middleware/setLogin');
-const addtoCart = require('./middleware/addtoCart')
+const addtoCart = require('./middleware/addtoCart.js')
 // const setSignup = require('./middleware/setSignup');
 const { authRegister, authLogin, authRoleVendor, authRoleShipper } = require('./middleware/Auth');
 
