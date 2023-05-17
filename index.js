@@ -69,21 +69,38 @@ app.get('/signup', (req, res) => {
     res.render('signup')
 });
 
-app.get('/shipperhub', (req, res) => {
+app.get('/shipperhub', authRoleShipper, (req, res) => {
     res.render('shipperhub')
 });
 
-app.get('/shipperhub/storage1', (req, res) => {
+app.get('/shipperhub/storage1', authRoleShipper, (req, res) => {
     res.render('storage1')
 });
 
-app.get('/shipperhub/storage2', (req, res) => {
+app.get('/shipperhub/storage2', authRoleShipper, (req, res) => {
     res.render('storage2')
 });
 
 app.post('/signup', authRegister, (req, res) => {
     console.log(req.session)
     res.redirect('/')
+});
+
+app.get('/shippersignup', (req, res) => {
+    res.render('shippersignup')
+});
+app.get('/vendorsignup', (req, res) => {
+    res.render('vendorsignup')
+});
+
+app.post('/shippers-signup', authRegister, (req, res) => {
+    res.redirect('/')
+    console.log(req.session)
+});
+
+app.post('/vendors-signup', authRegister, (req, res) => {
+    res.redirect('/')
+    console.log(req.session)
 });
 
 app.get('/login', (req, res) => {
@@ -119,13 +136,14 @@ app.get('/vendors', (req, res) => {
 });
 
 
-app.get('/vendoronly', (req, res) => {
-    // {creator: req.session.user.name}
+app.get('/vendoronly', authRoleVendor, (req, res) => {
     Products.find({creator: req.session.user.name})
     .then((products) => {
         res.render('vendoronly', {products: products});
     })
-    .catch((error) => console.log('Error'));
+    .catch((error) => {
+        res.render('vendoronly', { products: [] })
+    });
 });
 
 app.post('/createproduct', upload, createProducts, (req,res) => {

@@ -73,100 +73,104 @@
     <div class="container mt-1 p-1 bg-body">
       <div class="container justify-content-start m-0 p-0">
           <div class="row row-cols-lg-4 row-cols-sm-2 row-cols-1 g-3 p-2">
-            <% products.forEach(function(product){ %>
-              <div class="col">
-                <div class="card border-black">
-                  <div class="card-product-image mx-auto mb-2">
-                    <img 
-                    src="/images/<%= product.image.data.toString('ascii') %>"
-                    class="card-img-top justify-self-center m-0 p-0" alt="product image" >
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title"><%= product.name %></h5>
-                    <p class="card-text"><%= product.descrip %></p>
-                    <p class="fst-italic mb-3" style="font-size: 1rem; opacity: 75%;">Created by: <%= product.creator %></p>
-                    <div class="card-text d-flex align-items-center mb-2">
-                      <p class="gender m-0">Gender:&nbsp;</p>
-                      <p class="genders m-0"><%= product.gender %></p>
+            <% if (products.length === 0) { %>
+              <div>No products available.</div>
+            <% } else { %>
+              <% products.forEach(function(product){ %>
+                <div class="col">
+                  <div class="card border-black">
+                    <div class="card-product-image mx-auto mb-2">
+                      <img 
+                      src="/images/<%= product.image.data.toString('ascii') %>"
+                      class="card-img-top justify-self-center m-0 p-0" alt="product image" >
                     </div>
-                    <div class="card-text d-flex align-items-center mb-2">
-                      <p class="sizes m-0">Size:&nbsp;</p>
-                      <p class="variants m-0"><%= product.size %></p>
-                    </div>
-                    <div class="card-text d-flex align-items-center mb-3">
-                      <p class="prices m-0">Price:&nbsp;</p>
-                      <p class="money m-0"><%= product.price %></p>
-                    </div>
-                    <div class="card-text d-flex align-items-center mb-3">
-                      <p class="prices m-0">Category:&nbsp;</p>
-                      <p class="money m-0"><%= product.category %></p>
-                    </div>
-                    <div class="row row-col-2">
-                        <div type="button" class="col btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#staticEdit<%= product._id %>">
-                          Edit
-                        </div>
-                        <div class="modal fade" id="staticEdit<%= product._id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticEditLabel" aria-hidden="true">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="staticEditLabel">Edit this product</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <form action="/editproduct/<%= product._id %>" class="EditProductForm align-content-between" method="post" enctype="multipart/form-data">
-                              <div class="modal-body">
-                                  <p class="p-0 mb-1 fs-5">Name:</p>
-                                  <input type="text" class="form-control mb-3" name="name" value="<%= product.name %>">
-                                  <div class="genders mb-3">
-                                    <p class="p-0 mb-1 fs-5">Choose a gender again:</p>
-                                    <select class="form-select" name="gender" aria-label="category">
-                                      <option selected value="men">Men</option>
-                                      <option value="women">Women</option>
-                                      <option value="kids">Kids</option>
-                                    </select>
-                                  </div>
-                                  <p class="p-0 mb-1 fs-5">Select image again:</p>
-                                  <input type="file" class="form-control mb-3" name="image">
-                                  <p class="p-0 mb-1 fs-5">Description:</p>
-                                  <input type="text" class="form-control mb-3" name="descrip" value="<%= product.descrip %>">
-                                  <p class="p-0 mb-1 fs-5">Price:</p>
-                                  <input type="number" class="form-control mb-3" name="price" value="<%= product.price %>">
-                                  <div class="catergories mb-3">
-                                    <p class="p-0 mb-1 fs-5">Choose the category</p>
-                                    <select class="form-select" name="category" aria-label="category">
-                                      <option selected value="tops">Tops</option>
-                                      <option value="pants">Pants</option>
-                                      <option value="shoes">Shoes</option>
-                                      <option value="accessories">Accessories</option>
-                                    </select>
-                                  </div>
-                                  <p class="p-0 mb-1 fs-5">Size:</p>
-                                  <input type="text" class="form-control mb-3" name="size" value="<%= product.size %>">
-                                  <div class="onsale-products mb-3">
-                                    <p class="p-0 m-0 fs-5">On sale:</p>
-                                    <div class="sale d-flex align-items-center">
-                                      <input type="radio" name="onsale" value="true">
-                                      <p class="px-1 m-0">Yes</p>
+                    <div class="card-body">
+                      <h5 class="card-title"><%= product.name %></h5>
+                      <p class="card-text"><%= product.descrip %></p>
+                      <p class="fst-italic mb-3" style="font-size: 1rem; opacity: 75%;">Created by: <%= product.creator %></p>
+                      <div class="card-text d-flex align-items-center mb-2">
+                        <p class="gender m-0">Gender:&nbsp;</p>
+                        <p class="genders m-0"><%= product.gender %></p>
+                      </div>
+                      <div class="card-text d-flex align-items-center mb-2">
+                        <p class="sizes m-0">Size:&nbsp;</p>
+                        <p class="variants m-0"><%= product.size %></p>
+                      </div>
+                      <div class="card-text d-flex align-items-center mb-3">
+                        <p class="prices m-0">Price:&nbsp;</p>
+                        <p class="money m-0"><%= product.price %></p>
+                      </div>
+                      <div class="card-text d-flex align-items-center mb-3">
+                        <p class="prices m-0">Category:&nbsp;</p>
+                        <p class="money m-0"><%= product.category %></p>
+                      </div>
+                      <div class="row row-col-2">
+                          <div type="button" class="col btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#staticEdit<%= product._id %>">
+                            Edit
+                          </div>
+                          <div class="modal fade" id="staticEdit<%= product._id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticEditLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="staticEditLabel">Edit this product</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="/editproduct/<%= product._id %>" class="EditProductForm align-content-between" method="post" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <p class="p-0 mb-1 fs-5">Name:</p>
+                                    <input type="text" class="form-control mb-3" name="name" value="<%= product.name %>">
+                                    <div class="genders mb-3">
+                                      <p class="p-0 mb-1 fs-5">Choose a gender again:</p>
+                                      <select class="form-select" name="gender" aria-label="category">
+                                        <option selected value="men">Men</option>
+                                        <option value="women">Women</option>
+                                        <option value="kids">Kids</option>
+                                      </select>
                                     </div>
-                                    <div class="notsale d-flex align-items-center">
-                                      <input type="radio" name="onsale" value="false">
-                                      <p class="px-1 m-0">No</p>
+                                    <p class="p-0 mb-1 fs-5">Select image again:</p>
+                                    <input type="file" class="form-control mb-3" name="image">
+                                    <p class="p-0 mb-1 fs-5">Description:</p>
+                                    <input type="text" class="form-control mb-3" name="descrip" value="<%= product.descrip %>">
+                                    <p class="p-0 mb-1 fs-5">Price:</p>
+                                    <input type="number" class="form-control mb-3" name="price" value="<%= product.price %>">
+                                    <div class="catergories mb-3">
+                                      <p class="p-0 mb-1 fs-5">Choose the category</p>
+                                      <select class="form-select" name="category" aria-label="category">
+                                        <option selected value="tops">Tops</option>
+                                        <option value="pants">Pants</option>
+                                        <option value="shoes">Shoes</option>
+                                        <option value="accessories">Accessories</option>
+                                      </select>
                                     </div>
-                                  </div>
-                                  <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                      <button type="submit" class="btn btn-primary">Save changes</button>
+                                    <p class="p-0 mb-1 fs-5">Size:</p>
+                                    <input type="text" class="form-control mb-3" name="size" value="<%= product.size %>">
+                                    <div class="onsale-products mb-3">
+                                      <p class="p-0 m-0 fs-5">On sale:</p>
+                                      <div class="sale d-flex align-items-center">
+                                        <input type="radio" name="onsale" value="true">
+                                        <p class="px-1 m-0">Yes</p>
+                                      </div>
+                                      <div class="notsale d-flex align-items-center">
+                                        <input type="radio" name="onsale" value="false">
+                                        <p class="px-1 m-0">No</p>
+                                      </div>
                                     </div>
-                                </form>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                      </div>
+                                  </form>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      <a href="/<%= product.id %>/delete" class="col btn btn-primary mx-1">Delete</a>
+                        <a href="/<%= product.id %>/delete" class="col btn btn-primary mx-1">Delete</a>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            <% }) %>
+              <% }) %>
+            <% } %>  
           </div>
         </div>
       </div>

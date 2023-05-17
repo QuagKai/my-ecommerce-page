@@ -8,7 +8,8 @@ const authRegister = async (req, res, next) => {
     const data = {
         name:req.body.name,
         username:req.body.username,
-        password:hashedPassword
+        password:hashedPassword,
+        role: req.body.role
     }
     await User.insertMany([data])
 
@@ -17,19 +18,19 @@ const authRegister = async (req, res, next) => {
 };
 
 const authRoleVendor = (req, res, next) => {
-    if(req.user.role != 1) {
-        return req.send('You do not have access on this page')
+    if(req.session.user.role == 'vendors') {
+        next()
+    } else {
+        res.status(400).send('You do not have vendor role to access on this page')
     }
-
-    next()
 };
 
 const authRoleShipper = (req, res, next) => {
-    if(req.user.role != 2) {
-        return req.send('You do not have access on this page')
+    if(req.session.user.role == 'shipper') {
+        next()
+    } else {
+        res.status(400).send('You do not have shipper role to access on this page')
     }
-
-    next()
 };
 
 const authLogin = async (req, res, next) => {
