@@ -63,8 +63,8 @@
           </button>
           <ul class="dropdown-menu dropdown-menu-end px-2">
             <li>
-              <label for="Price" class="form-label">Available price</label>
-              <input type="range" class="form-range" min="0" max="100000" id="Price">
+              <label for="money-range">Price Range: <span id="money-range-value">$100</span></label>
+              <input type="range" class="form-range" id="money-range" min="0" max="5000" value="100" step="25">
             </li>
           </ul>
         </div>
@@ -74,10 +74,10 @@
       <div class="container justify-content-start m-0 p-0">
           <div class="row row-cols-lg-4 row-cols-sm-2 row-cols-1 g-3 p-2">
             <% if (products.length === 0) { %>
-              <div>No products available.</div>
+              <div id="available">No products available.</div>
             <% } else { %>
               <% products.forEach(function(product){ %>
-                <div class="col">
+                <div class="col productinVendor" data-price="<%= product.price %>">
                   <div class="card border-black">
                     <div class="card-product-image mx-auto mb-2">
                       <img 
@@ -98,7 +98,7 @@
                       </div>
                       <div class="card-text d-flex align-items-center mb-3">
                         <p class="prices m-0">Price:&nbsp;</p>
-                        <p class="money m-0"><%= product.price %></p>
+                        <p class="money m-0"><%= product.price %> $</p>
                       </div>
                       <div class="card-text d-flex align-items-center mb-3">
                         <p class="prices m-0">Category:&nbsp;</p>

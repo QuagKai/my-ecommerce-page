@@ -21,15 +21,15 @@ const authRoleVendor = (req, res, next) => {
     if(req.session.user.role == 'vendors') {
         next()
     } else {
-        res.status(400).send('You do not have vendor role to access on this page')
+        res.status(401).send('You do not have vendor role to access on this page')
     }
 };
 
 const authRoleShipper = (req, res, next) => {
-    if(req.session.user.role == 'shipper') {
+    if(req.session.user.role == 'shippers') {
         next()
     } else {
-        res.status(400).send('You do not have shipper role to access on this page')
+        res.status(401).send('You do not have shipper role to access on this page')
     }
 };
 

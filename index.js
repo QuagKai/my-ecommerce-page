@@ -37,7 +37,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie:{
-    maxAge: 20* 1000, // expire in 20s
+    maxAge: 60* 1000, // expire in 20s
     secure: false, // set false to use the cookie on local host
     httpOnly: true // for more secure
 },
