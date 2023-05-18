@@ -14,22 +14,14 @@ const addtoCart = async(req, res, next) => {
     let existedCart = await Cart.findOne({cartOwnerID : usersession.id})
     if(!existedCart) {
         existedCart = new Cart({cartOwnerID : usersession.id});
-        console.log('Cart existed');
-    } else {
         console.log('Cart created');
+    } else {
+        console.log('Cart existed');
     }
 
     // await existedCart.addItemtoCart(productsinDB, usersession);
     // existedCart.markModified('items');
-    await existedCart.save(existedCart.addItemtoCart(productsinDB, usersession))
-    .then(() => {
-        console.log(Cart.getItemfromCart())
-        next()
-    })
-    .catch((error) => {
-        console.log('Cannot save cart')
-        next()
-    })
+    await existedCart.addItemtoCart(productsinDB, usersession)
 }
 
 module.exports = addtoCart

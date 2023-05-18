@@ -22,19 +22,23 @@ const cartSchema = new mongoose.Schema({
     }
 });
 
-cartSchema.methods.addItemtoCart = async function(productsinDB, usersessionID) {
+cartSchema.methods.addItemtoCart = async function(productsinDB) {
     if (isNaN(this.Qty)) {
         this.Qty = 0;
     }
     if (isNaN(this.totalPrice)) {
         this.totalPrice = 0;
     }
-    const existingItemIndex = this.items.findIndex(p => p.id == productsinDB._id)
-    if (existingItemIndex !== -1) {
+    let existingItemIndex = this.items.findIndex((p) => p.id == productsinDB._id)
+    console.log('existingItemIndex:', existingItemIndex);
+    console.log('productsinDB._id:', productsinDB._id);
+    console.log('this.items:', this.items);
+    if (existingItemIndex >= 0) {
         let itemtoAdd = this.items[existingItemIndex];
         itemtoAdd.qty += 1;
         this.Qty += 1;
         this.totalPrice += productsinDB.price;
+        console.log('Đã tăng lượng')
 
         // this.items.push({
         //     id: productsinDB._id.toString(),
@@ -58,15 +62,6 @@ cartSchema.methods.addItemtoCart = async function(productsinDB, usersessionID) {
         this.Qty += 1;
         this.totalPrice += productsinDB.price;
     }
-
-    // this.markModified('items')
-    // try {
-    //     await this.save(); // Save the cart
-    // } catch (error) {
-    //     console.log('Cannot save cartInstane');
-    //     throw error; // Rethrow the error to be handled by the calling function
-    // }
-
     return this.save()
 }
 
