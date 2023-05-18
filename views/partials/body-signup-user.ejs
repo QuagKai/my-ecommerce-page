@@ -1,8 +1,19 @@
-<div class="container-fluid">
+<header class="bg-secondary">
+  <div class="container">
+      <nav class="navbar navbar-dark">
+          <a class="navbar-brand" href="#">
+              Brand
+          </a>
+          <a class="btn btn-outline-light" href="/contact">Need Help?</a>
+      </nav>
+  </div>
+</header>
+
+<div class="container-fluid mt-5">
     <div class="row justify-content-center">
       <div class="col-lg-6 col-md-8">
         <div class="signup-form">
-          <h2>Sign Up</h2>
+          <h2>User Sign Up</h2>
           <form action="/signup" method="post">
             <div class="mb-3">
               <label for="name1" class="form-label">Name</label>
@@ -21,6 +32,19 @@
             </div>
             <button type="submit" class="btn btn-primary">Sign Up</button>
           </form>
+          <p class="fs-5 text-center my-3">OR</p>
+          <div class="col option">
+            <div class="container p-0">
+              <p>Already have an account? <a href="/login">Login here</a></p>
+            </div>
+            <p class="fs-5 text-center my-3">OR</p>
+            <div class="col mt-2 text-center">
+              <a href="/shippersignup" class="btn btn-success align-self-center">Sign up for becomming a shipper</a>
+            </div>
+            <div class="col mt-2 text-center">
+              <a href="/vendorsignup" class="btn btn-success align-self-center">Sign up for becomming a vendor</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
   <h1>All Products</h1>
   <div class="form-group">
     <label for="price-range">Price Range: <span id="price-range-value">$200</span></label>
-    <input type="range" class="form-range" id="price-range" min="0" max="200" value="200" step="10">
+    <input type="range" class="form-range" id="price-range" min="0" max="5000" value="200" step="25">
   </div>
   <div class="form-group">
     <label for="sort-order">Sort Order:</label>
@@ -14,20 +14,22 @@
   <hr>
   <div id="product-container" class="row">
     <!-- Add your product cards here -->
-    <div class="col-lg-4 col-md-6 col-sm-12 product-card" data-price="50">
-      <div class="card">
-        <img src="/images/nike_shirt.jpeg" class="card-img-top" alt="Product Image">
-        <div class="card-body">
-          <h5 class="card-title">T-shirt</h5>
-          <p class="card-text">Nike</p>
-          <p class="card-price">Price: $50</p>
-          <button class="margin-button btn btn-primary">Add to Cart</button>
-          <button class="btn btn-success">Buy Now</button>
+    <% products.forEach(function(product){ %>
+      <div class="col-lg-4 col-md-6 col-sm-12 product-card" data-price="<%= product.price %>">
+        <div class="card">
+          <img src="/images/<%= product.image.data.toString('ascii') %>" class="card-img-top" alt="Product Image">
+          <div class="card-body">
+            <h5 class="card-title"><%= product.name %></h5>
+            <p class="card-text">Created by: <%= product.creator %></p>
+            <p class="card-price">Price: $<%= product.price %></p>
+            <a href="/add-to-cart/<%= product._id %>" class="margin-button btn btn-primary">Add to Cart</a>
+            <button class="btn btn-success">Buy Now</button>
+          </div>
         </div>
       </div>
-    </div>
+    <% }) %>
     <!-- Add more product cards as needed -->
-    <div class="col-lg-4 col-md-6 col-sm-12 product-card" data-price="80">
+    <!-- <div class="col-lg-4 col-md-6 col-sm-12 product-card" data-price="80">
       <div class="card">
         <img src="/images/pocket-grey-tshirt.webp" class="card-img-top" alt="Product Image">
         <div class="card-body">
@@ -38,8 +40,8 @@
           <button class="btn btn-success">Buy Now</button>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 
-  <script src="/js/all-products.js"></script>
+  <!-- <script src="/js/all-products.js"></script> -->

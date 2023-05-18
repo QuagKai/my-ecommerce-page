@@ -8,7 +8,8 @@ const authRegister = async (req, res, next) => {
     const data = {
         name:req.body.name,
         username:req.body.username,
-        password:hashedPassword
+        password:hashedPassword,
+        role: req.body.role
     }
     await User.insertMany([data])
 
@@ -17,19 +18,29 @@ const authRegister = async (req, res, next) => {
 };
 
 const authRoleVendor = (req, res, next) => {
-    if(req.user.role != 1) {
-        return req.send('You do not have access on this page')
-    }
-
-    next()
+    authLogged(req, res, () => {
+        if (req.session.user.role === 'vendors') {
+          next();
+        } else {
+          res.status(401).send('You do not have the "vendor" role to access this page');
+        }
+    })
+    // authLogged(req.session.user.role)
+    // if(req.session.user.role == 'vendors') {
+    //     next()
+    // } else {
+    //     res.status(401).send('You do not have vendor role to access on this page')
+    // }
 };
 
 const authRoleShipper = (req, res, next) => {
-    if(req.user.role != 2) {
-        return req.send('You do not have access on this page')
-    }
-
-    next()
+    authLogged(req, res, () => {
+        if (req.session.user.role === 'shippers') {
+          next();
+        } else {
+          res.status(401).send('You do not have the "shipper" role to access this page');
+        }
+    })
 };
 
 const authLogin = async (req, res, next) => {
@@ -48,9 +59,28 @@ const authLogin = async (req, res, next) => {
     }
 }
 
+const authLogged = async (req, res, next) => {
+    if (req.session && req.session.user && req.session.user.role) {
+        next();
+    } else {
+        res.status(400).send('You have to log in with an account that has this role');
+    }
+}
+
+const authRoleCustomer = (req, res, next) => {
+    authLogged(req, res, () => {
+        if (req.session.user.role === 'customers') {
+          next();
+        } else {
+          res.status(401).send('You do not have the "customer" role to access this page');
+        }
+    })
+};
+
 module.exports = {
     authRegister,
     authRoleVendor,
     authRoleShipper,
-    authLogin
+    authLogin,
+    authRoleCustomer
 }
