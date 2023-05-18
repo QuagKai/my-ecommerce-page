@@ -18,19 +18,29 @@ const authRegister = async (req, res, next) => {
 };
 
 const authRoleVendor = (req, res, next) => {
-    if(req.session.user.role == 'vendors') {
-        next()
-    } else {
-        res.status(401).send('You do not have vendor role to access on this page')
-    }
+    authLogged(req, res, () => {
+        if (req.session.user.role === 'vendors') {
+          next();
+        } else {
+          res.status(401).send('You do not have the "vendor" role to access this page');
+        }
+    })
+    // authLogged(req.session.user.role)
+    // if(req.session.user.role == 'vendors') {
+    //     next()
+    // } else {
+    //     res.status(401).send('You do not have vendor role to access on this page')
+    // }
 };
 
 const authRoleShipper = (req, res, next) => {
-    if(req.session.user.role == 'shippers') {
-        next()
-    } else {
-        res.status(401).send('You do not have shipper role to access on this page')
-    }
+    authLogged(req, res, () => {
+        if (req.session.user.role === 'shippers') {
+          next();
+        } else {
+          res.status(401).send('You do not have the "shipper" role to access this page');
+        }
+    })
 };
 
 const authLogin = async (req, res, next) => {
@@ -46,6 +56,14 @@ const authLogin = async (req, res, next) => {
     }
     catch {
         res.send('Wrong details')
+    }
+}
+
+const authLogged = async (req, res, next) => {
+    if (req.session && req.session.user && req.session.user.role) {
+        next();
+    } else {
+        res.status(400).send('You have to log in with an account that has this role');
     }
 }
 

@@ -94,12 +94,12 @@ app.get('/vendorsignup', (req, res) => {
 });
 
 app.post('/shippers-signup', authRegister, (req, res) => {
-    res.redirect('/')
+    res.redirect('/shipperhub')
     console.log(req.session)
 });
 
 app.post('/vendors-signup', authRegister, (req, res) => {
-    res.redirect('/')
+    res.redirect('/vendoronly')
     console.log(req.session)
 });
 
@@ -107,7 +107,7 @@ app.get('/login', (req, res) => {
     res.render('login')
 });
 
-app.post('/login', setLogin, authLogin, (req, res) => {
+app.post('/login', authLogin, setLogin, (req, res) => {
     console.log(req.session)
     res.redirect('/');
 });
@@ -156,6 +156,7 @@ app.get('/:id/delete', deleteProducts, (req,res) => {
 });
 
 app.get('/add-to-cart/:id', addtoCart, (req,res) => {
+    console.log("addtoCart function loop")
 });
 
 app.listen(port, () => {

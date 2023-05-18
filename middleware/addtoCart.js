@@ -3,24 +3,33 @@ const Cart = require('../model/carts');
 
 const addtoCart = async(req, res, next) => {
     const productId = req.params.id;
-    const usersessionID = req.session.user.id;
-    const productsinDB = await Products.findById(productId)
-    .then((product) => console.log(product))
-    .catch((error) => console.log('Item no existed'))
+    const usersession = req.session.user;
+    let productsinDB = await Products.findById(productId)
+    if(!productsinDB) {
+        console.log('Item dont existed');
+    } else {
+        console.log('Item Existed');
+    }
 
-    let existedCart = await Cart.findOne({cartOwnerID : usersessionID})
+    let existedCart = await Cart.findOne({cartOwnerID : usersession.id})
     if(!existedCart) {
-        existedCart = new Cart({cartOwnerID : usersessionID});
+        existedCart = new Cart({cartOwnerID : usersession.id});
         console.log('Cart existed');
     } else {
         console.log('Cart created');
-        return existedCart
     }
 
-    existedCart.addItemtoCart(productsinDB, usersessionID);
-    await existedCart.save()
-    .then(() => console.log(Cart.getItemfromCart()))
-    .catch((error) => console.log('Cannot save cart'))
+    // await existedCart.addItemtoCart(productsinDB, usersession);
+    // existedCart.markModified('items');
+    await existedCart.save(existedCart.addItemtoCart(productsinDB, usersession))
+    .then(() => {
+        console.log(Cart.getItemfromCart())
+        next()
+    })
+    .catch((error) => {
+        console.log('Cannot save cart')
+        next()
+    })
 }
 
 module.exports = addtoCart
