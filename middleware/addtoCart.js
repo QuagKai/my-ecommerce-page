@@ -1,35 +1,43 @@
 const Products = require('../model/products');
 const Cart = require('../model/carts');
 
-const addtoCart = async(req, res, next) => {
+const addtoCart = async (req, res, next) => {
     const productId = req.params.id;
     const usersession = req.session.user;
-    let productsinDB = await Products.findById(productId)
-    if(!productsinDB) {
-        console.log('Item dont existed');
-    } else {
-        console.log('Item Existed');
+
+    if (!usersession) {
+        return res.redirect('/login');
     }
 
-    let existedCart = await Cart.findOne({cartOwnerID : usersession.id})
-    if(!existedCart) {
-        existedCart = new Cart({cartOwnerID : usersession.id});
-        console.log('Cart existed');
-    } else {
-        console.log('Cart created');
+    if (usersession.role !== 'customer') {
+        console.log('Only customer can add to cart');
     }
 
-    // await existedCart.addItemtoCart(productsinDB, usersession);
-    // existedCart.markModified('items');
-    await existedCart.save(existedCart.addItemtoCart(productsinDB, usersession))
-    .then(() => {
-        console.log(Cart.getItemfromCart())
-        next()
-    })
-    .catch((error) => {
-        console.log('Cannot save cart')
-        next()
-    })
-}
+    try {
+        let productsinDB = await Products.findById(productId);
+        if (!productsinDB) {
+            console.log('Item does not exist');
+        } else {
+            console.log('Item exists');
+        }
 
-module.exports = addtoCart
+        let existedCart = await Cart.findOne({ cartOwnerID: usersession.id });
+        if (!existedCart) {
+            existedCart = new Cart({ cartOwnerID: usersession.id });
+            console.log('Cart created');
+        } else {
+            console.log('Cart exists');
+        }
+
+        await existedCart.addItemtoCart(productsinDB, usersession);
+        console.log(existedCart.getItemfromCart());
+        await existedCart.save();
+
+        next();
+    } catch (error) {
+        console.log('Error adding item to cart:', error);
+        next(error);
+    }
+};
+
+module.exports = addtoCart;

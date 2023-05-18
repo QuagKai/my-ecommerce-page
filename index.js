@@ -155,8 +155,9 @@ app.post('/editproduct/:id', upload, editProducts, (req,res) => {
 app.get('/:id/delete', deleteProducts, (req,res) => {
 });
 
-app.get('/add-to-cart/:id', addtoCart, (req,res) => {
-    console.log("addtoCart function loop")
+app.get('/add-to-cart/:id', addtoCart, (req, res, next) => {
+    console.log('addtoCart function loop');
+    res.sendStatus(200);
 });
 
 app.listen(port, () => {
