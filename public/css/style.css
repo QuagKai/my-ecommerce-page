@@ -103,8 +103,3 @@
   .margin-button {
     margin-bottom: 2%;
   }
-  
-  .item-image img {
-    height: 100%;
-    object-fit: cover;
-  }
