@@ -67,9 +67,20 @@ const authLogged = async (req, res, next) => {
     }
 }
 
+const authRoleCustomer = (req, res, next) => {
+    authLogged(req, res, () => {
+        if (req.session.user.role === 'customers') {
+          next();
+        } else {
+          res.status(401).send('You do not have the "customer" role to access this page');
+        }
+    })
+};
+
 module.exports = {
     authRegister,
     authRoleVendor,
     authRoleShipper,
-    authLogin
+    authLogin,
+    authRoleCustomer
 }

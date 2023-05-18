@@ -15,7 +15,7 @@ const User = require('./model/user');
 const setLogin = require('./middleware/setLogin');
 const addtoCart = require('./middleware/addtoCart.js')
 // const setSignup = require('./middleware/setSignup');
-const { authRegister, authLogin, authRoleVendor, authRoleShipper } = require('./middleware/Auth');
+const { authRegister, authLogin, authRoleVendor, authRoleShipper, authRoleCustomer } = require('./middleware/Auth');
 
 //set up for mongoose
 const port = 3000;
@@ -158,6 +158,10 @@ app.get('/:id/delete', deleteProducts, (req,res) => {
 app.get('/add-to-cart/:id', addtoCart, (req, res, next) => {
     console.log('addtoCart function loop');
     res.sendStatus(200);
+});
+
+app.get('/cart', authRoleCustomer, (req,res) => {
+    res.render('yourcart')
 });
 
 app.listen(port, () => {
