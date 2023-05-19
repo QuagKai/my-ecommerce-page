@@ -1,6 +1,6 @@
 <div class="mt-5">
-    <div class="container">
-      <div class="conatiner d-flex">
+    <div class="container d-flex">
+      <div class="conatiner">
         <div class="modalbox">
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             Create a product
@@ -13,7 +13,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="/createproduct" class="CreateProductForm align-content-between" method="post" enctype="multipart/form-data">
-                <div class="modal-body">
+                  <div class="modal-body">
                     <input type="text" class="form-control mb-3" name="name" placeholder="Name">
                     <div class="genders mb-3">
                       <p class="p-0 mb-1 fs-5">Choose a gender</p>
@@ -50,24 +50,24 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
-                      </div>
-                  </form>
-                </div>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
-        <div class="btn-group ms-auto">
-          <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            Sort by
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end px-2">
-            <li>
-              <label for="money-range">Price Range: <span id="money-range-value">$100</span></label>
-              <input type="range" class="form-range" id="money-range" min="0" max="5000" value="100" step="25">
-            </li>
-          </ul>
-        </div>
+      </div>  
+      <div class="btn-group ms-auto">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          Sort by
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end px-2">
+          <li>
+            <label for="money-range">Price Range: <span id="money-range-value">$100</span></label>
+            <input type="range" class="form-range" id="money-range" min="0" max="5000" value="100" step="25">
+          </li>
+        </ul>
       </div>
     </div>
     <div class="container mt-1 p-1 bg-body">
@@ -105,62 +105,62 @@
                         <p class="money m-0"><%= product.category %></p>
                       </div>
                       <div class="row row-col-2">
-                          <div type="button" class="col btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#staticEdit<%= product._id %>">
+                          <button type="button" class="col btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#staticEdit<%= product._id %>">
                             Edit
-                          </div>
-                          <div class="modal fade" id="staticEdit<%= product._id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticEditLabel" aria-hidden="true">
+                          </button>
+                          <div class="modal fade" id="staticEdit<%= product._id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticEditLabel<%= product._id %>" aria-hidden="true">
                             <div class="modal-dialog">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title" id="staticEditLabel">Edit this product</h5>
+                                  <h5 class="modal-title" id="staticEditLabel<%= product._id %>">Edit this product</h5>
                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <form action="/editproduct/<%= product._id %>" class="EditProductForm align-content-between" method="post" enctype="multipart/form-data">
-                                <div class="modal-body">
-                                    <p class="p-0 mb-1 fs-5">Name:</p>
-                                    <input type="text" class="form-control mb-3" name="name" value="<%= product.name %>">
-                                    <div class="genders mb-3">
-                                      <p class="p-0 mb-1 fs-5">Choose a gender again:</p>
-                                      <select class="form-select" name="gender" aria-label="category">
-                                        <option selected value="men">Men</option>
-                                        <option value="women">Women</option>
-                                        <option value="kids">Kids</option>
-                                      </select>
-                                    </div>
-                                    <p class="p-0 mb-1 fs-5">Select image again:</p>
-                                    <input type="file" class="form-control mb-3" name="image">
-                                    <p class="p-0 mb-1 fs-5">Description:</p>
-                                    <input type="text" class="form-control mb-3" name="descrip" value="<%= product.descrip %>">
-                                    <p class="p-0 mb-1 fs-5">Price:</p>
-                                    <input type="number" class="form-control mb-3" name="price" value="<%= product.price %>">
-                                    <div class="catergories mb-3">
-                                      <p class="p-0 mb-1 fs-5">Choose the category</p>
-                                      <select class="form-select" name="category" aria-label="category">
-                                        <option selected value="tops">Tops</option>
-                                        <option value="pants">Pants</option>
-                                        <option value="shoes">Shoes</option>
-                                        <option value="accessories">Accessories</option>
-                                      </select>
-                                    </div>
-                                    <p class="p-0 mb-1 fs-5">Size:</p>
-                                    <input type="text" class="form-control mb-3" name="size" value="<%= product.size %>">
-                                    <div class="onsale-products mb-3">
-                                      <p class="p-0 m-0 fs-5">On sale:</p>
-                                      <div class="sale d-flex align-items-center">
-                                        <input type="radio" name="onsales" value="true">
-                                        <p class="px-1 m-0">Yes</p>
+                                  <div class="modal-body">
+                                      <p class="p-0 mb-1 fs-5">Name:</p>
+                                      <input type="text" class="form-control mb-3" name="name" value="<%= product.name %>">
+                                      <div class="genders mb-3">
+                                        <p class="p-0 mb-1 fs-5">Choose a gender again:</p>
+                                        <select class="form-select" name="gender" aria-label="category">
+                                          <option selected value="men">Men</option>
+                                          <option value="women">Women</option>
+                                          <option value="kids">Kids</option>
+                                        </select>
                                       </div>
-                                      <div class="notsale d-flex align-items-center">
-                                        <input type="radio" name="onsales" value="false">
-                                        <p class="px-1 m-0">No</p>
+                                      <p class="p-0 mb-1 fs-5">Select image again:</p>
+                                      <input type="file" class="form-control mb-3" name="image">
+                                      <p class="p-0 mb-1 fs-5">Description:</p>
+                                      <input type="text" class="form-control mb-3" name="descrip" value="<%= product.descrip %>">
+                                      <p class="p-0 mb-1 fs-5">Price:</p>
+                                      <input type="number" class="form-control mb-3" name="price" value="<%= product.price %>">
+                                      <div class="catergories mb-3">
+                                        <p class="p-0 mb-1 fs-5">Choose the category</p>
+                                        <select class="form-select" name="category" aria-label="category">
+                                          <option selected value="tops">Tops</option>
+                                          <option value="pants">Pants</option>
+                                          <option value="shoes">Shoes</option>
+                                          <option value="accessories">Accessories</option>
+                                        </select>
                                       </div>
-                                    </div>
-                                    <div class="modal-footer">
+                                      <p class="p-0 mb-1 fs-5">Size:</p>
+                                      <input type="text" class="form-control mb-3" name="size" value="<%= product.size %>">
+                                      <div class="onsale-products mb-3">
+                                        <p class="p-0 m-0 fs-5">On sale:</p>
+                                        <div class="sale d-flex align-items-center">
+                                          <input type="radio" name="onsales" value="true">
+                                          <p class="px-1 m-0">Yes</p>
+                                        </div>
+                                        <div class="notsale d-flex align-items-center">
+                                          <input type="radio" name="onsales" value="false">
+                                          <p class="px-1 m-0">No</p>
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary">Save changes</button>
                                       </div>
-                                  </form>
-                                </div>
+                                  </div>
+                                </form>
                               </div>
                             </div>
                           </div>
@@ -175,4 +175,3 @@
         </div>
       </div>
     </div>
-  </div>

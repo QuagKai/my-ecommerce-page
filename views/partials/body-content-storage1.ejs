@@ -1,42 +1,34 @@
-<content>
-    <div class="text-center mt-5">
-        <h3>Orders from Storage 1</h3>
-    </div>
-    <div class="container bg-light mt-5">
-        <div class="row row-cols-xl-3 row-cols-1 mb-3 justify-content-center">
-            <div class="col ">
-                <img src="/images/istockphoto-1206806317-612x612.jpg" style="height: 25rem; width: auto;" alt="Order">
+<div class="text-center mt-5">
+    <h3>Orders from Storage 1</h3>
+</div>
+<div class="container bg-light mt-5">
+    <div class="row row-cols-xl-3 row-cols-1 mb-3 justify-content-center">
+        <div class="col ">
+            <img src="/images/istockphoto-1206806317-612x612.jpg" style="height: 25rem; width: auto;" alt="Order">
+        </div>
+        <div class="col my-3">
+            <div id="order-id">
+                <p>OrderID#123123</p>
             </div>
-            <div class="col my-3">
-                <div id="order-id">
-                    <p>OrderID#123123</p>
-                </div>
-                <div id="order-info">
-                    <h5>Product name:</h5>
-                    <br />
-                    <p>Delivery address:</p>
-                </div>
+            <div id="order-info">
+                <h5>Product name:</h5>
+                <br>
+                <p>Delivery address:</p>
             </div>
-            <div class="col text-md-center my-3">
-                <h4>Status</h4>
-                <div id="order-status">
-                    <a class="text-decoration-none" href="#">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">
-                            Active
-                        </button>
-                    </a>
-                    <a class="text-decoration-none" href="/deliverorder">
-                        <button type="button" class="btn btn-success" data-bs-toggle="button" autocomplete="off" aria-pressed="true">
-                            Delivered
-                        </button>
-                    </a>
-                    <a class="text-decoration-none" href="/cancelorder">
-                        <button type="button" class="btn btn-danger" data-bs-toggle="button" autocomplete="off" aria-pressed="true">
-                            Canceled
-                        </button>
-                    </a>
-                </div>
+        </div>
+        <div class="col text-md-center my-3">
+            <h4>Status</h4>
+            <div id="order-status">
+                <a class="text-decoration-none btn btn-primary" href="#">
+                    Active
+                </a>
+                <a class="text-decoration-none btn btn-success" href="/deliverorder">
+                    Delivered
+                </a>
+                <a class="text-decoration-none btn btn-danger" href="/cancelorder">
+                    Canceled
+                </a>
             </div>
         </div>
     </div>
-</content>
+</div>
