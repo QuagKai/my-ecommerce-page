@@ -37,13 +37,13 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie:{
-    maxAge: 60* 1000, // expire in 20s
+    maxAge: 20*60* 1000, // expire in 60s
     secure: false, // set false to use the cookie on local host
     httpOnly: true // for more secure
 },
   store: MongoStore.create({
     mongoUrl: MONGO_URL_K, 
-    ttl: 60 // session epxires in 60s
+    ttl: 20*60 // session epxires in 60s
   })
 }))
 
