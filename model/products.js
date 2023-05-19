@@ -33,8 +33,7 @@ const productSchema = new mongoose.Schema({
         required: true
     },
     onsale: {
-        type: Boolean,
-        default: true,
+        type: String,
     },
     creator: {
         type: String,

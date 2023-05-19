@@ -16,6 +16,7 @@ const setLogin = require('./middleware/setLogin');
 const addtoCart = require('./middleware/addtoCart.js')
 // const setSignup = require('./middleware/setSignup');
 const { authRegister, authLogin, authRoleVendor, authRoleShipper, authRoleCustomer } = require('./middleware/Auth');
+const products = require('./model/products');
 
 //set up for mongoose
 const port = 3000;
@@ -37,13 +38,13 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie:{
-    maxAge: 60* 1000, // expire in 20s
+    maxAge: 20*60* 1000, // expire in 60s
     secure: false, // set false to use the cookie on local host
     httpOnly: true // for more secure
 },
   store: MongoStore.create({
     mongoUrl: MONGO_URL_K, 
-    ttl: 60 // session epxires in 60s
+    ttl: 20*60 // session epxires in 60s
   })
 }))
 
@@ -124,7 +125,7 @@ app.get('/logout', (req, res, next) => {
 });
 
 app.get('/all-products', (req, res) => {
-    Products.find()
+    Products.find({onsale: "true"})
     .then((products) => {
         res.render('all-products', {products: products});
     })
@@ -169,5 +170,31 @@ app.listen(port, () => {
 });
 
 app.get('/all-vendor', (req, res) => {
-    res.render('all-vendor')
+    Products.find()
+    .then((product) => {
+        res.render('all-vendor',{vendorProduct : product})
+    })
+    .catch((error) => {
+        res.redirect('')
+    });
 });
+
+app.get('/product/:id', (req, res) => {
+    Products.findById(req.params.id)
+    .then((product) => {
+        res.render('details',{oneProduct : product})
+    })
+    .catch((error) => {
+        res.redirect('/all-products')
+    });
+})
+
+app.get('/vendor', (req, res) => {
+    Products.find({creator: "Acne"})
+    .then((products) => {
+        res.render('vendor',{creatorProduct : products})
+    })
+    .catch((error) => {
+        res.redirect('/all-vendors')
+    });
+})
