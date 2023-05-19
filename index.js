@@ -171,3 +171,13 @@ app.listen(port, () => {
 app.get('/all-vendor', (req, res) => {
     res.render('all-vendor')
 });
+
+app.get('/product/:id', (req, res) => {
+    Products.findById(req.params.id)
+    .then((product) => {
+        res.render('details',{oneProduct : product})
+    })
+    .catch((error) => {
+        res.redirect('/all-products')
+    });
+})

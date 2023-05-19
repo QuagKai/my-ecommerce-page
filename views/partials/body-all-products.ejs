@@ -17,7 +17,7 @@
     <% products.forEach(function(product){ %>
       <div class="col-lg-4 col-md-6 col-sm-12 product-card" data-price="<%= product.price %>">
         <div class="card">
-          <img src="/images/<%= product.image.data.toString('ascii') %>" class="card-img-top" alt="Product Image">
+          <a href="/product/<%= product._id %>"><img src="/images/<%= product.image.data.toString('ascii') %>" class="card-img-top" alt="Product Image"></a>
           <div class="card-body">
             <h5 class="card-title"><%= product.name %></h5>
             <p class="card-text">Created by: <%= product.creator %></p>
