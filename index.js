@@ -16,6 +16,7 @@ const setLogin = require('./middleware/setLogin');
 const addtoCart = require('./middleware/addtoCart.js')
 // const setSignup = require('./middleware/setSignup');
 const { authRegister, authLogin, authRoleVendor, authRoleShipper, authRoleCustomer } = require('./middleware/Auth');
+const products = require('./model/products');
 
 //set up for mongoose
 const port = 3000;
@@ -169,7 +170,13 @@ app.listen(port, () => {
 });
 
 app.get('/all-vendor', (req, res) => {
-    res.render('all-vendor')
+    Products.find()
+    .then((product) => {
+        res.render('all-vendor',{vendorProduct : product})
+    })
+    .catch((error) => {
+        res.redirect('')
+    });
 });
 
 app.get('/product/:id', (req, res) => {
@@ -182,10 +189,10 @@ app.get('/product/:id', (req, res) => {
     });
 })
 
-app.get('/vendor/:name', (req, res) => {
-    Products.findOne({creator: req.params.name})
-    .then((product) => {
-        res.render('vendor',{creatorProduct : product})
+app.get('/vendor', (req, res) => {
+    Products.find({creator: "Acne"})
+    .then((products) => {
+        res.render('vendor',{creatorProduct : products})
     })
     .catch((error) => {
         res.redirect('/all-vendors')
