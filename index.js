@@ -198,3 +198,7 @@ app.get('/vendor', (req, res) => {
         res.redirect('/all-vendors')
     });
 })
+
+app.get('shipperhub/storage1', (req,res) => {
+    res.render('storage1')
+})
