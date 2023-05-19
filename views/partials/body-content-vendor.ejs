@@ -1,0 +1,70 @@
+<content>
+    <div class="container bg-light mt-5">
+      <div class="row">
+        <div class="col-md-3">
+          <img src="" alt="Vendor Logo" />
+          <a href="#">Vendor Logo</a>
+        </div>
+        <div class="col-md-6">
+          <p><i class="fa-solid fa-box-archive"></i> Products: 2k</p>
+          <p><i class="fa-solid fa-user-plus"></i> Followers: 10k</p>
+          <p><i class="fa-solid fa-user"></i> Member since: 2015</p>
+          <p><i class="fa-solid fa-star"></i> Rating: 4.7</p>
+        </div>
+        <div class="col-md-3">
+          <div class="d-grid gap-2 col-6 mx-auto">
+            <button class="btn btn-primary" type="button"> <i class="fa-solid fa-plus"></i> Follow</button>
+            <button class="btn btn-primary" type="button"><i class="fa-regular fa-comments"></i> Chat</button>
+          </div>
+      </div>
+    </div>
+
+    <div class="container align-items-center justify-content-center mt-5">
+        <div class="row p-4 g-5 bg-gradient">
+            <h5>Tops</h5>
+        </div>
+        <div class="row p-4 g-5">
+            <% creatorProduct.forEach(function(product){ %>
+                <% if (product.category == "Tops") { %>
+                    <div class="col">
+                        <div class="col-lg-4 col-md-6 col-sm-12 product-card" data-price="<%= product.price %>">
+                            <div class="card">
+                                <a href="/product/<%= product._id %>"><img src="/images/<%= product.image.data.toString('ascii') %>" class="card-img-top" alt="Product Image"></a>
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= product.name %></h5>
+                                    <p class="card-text">Created by: <%= product.creator %></p>
+                                    <p class="card-price">Price: $<%= product.price %></p>
+                                    <a href="/add-to-cart/<%= product._id %>" class="margin-button btn btn-primary">Add to Cart</a>
+                                    <button class="btn btn-success">Buy Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            <% }) %>
+        </div>
+        <div class="row p-4 g-5 bg-gradient">
+            <h5>Category 2</h5>
+        </div>
+        <div class="row p-4 g-5">
+            <% creatorProduct.forEach(function(product){ %>
+                <% if (product.category == "Tops") { %>
+                    <div class="col">
+                        <div class="col-lg-4 col-md-6 col-sm-12 product-card" data-price="<%= product.price %>">
+                            <div class="card">
+                                <a href="/product/<%= product._id %>"><img src="/images/<%= product.image.data.toString('ascii') %>" class="card-img-top" alt="Product Image"></a>
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= product.name %></h5>
+                                    <p class="card-text">Created by: <%= product.creator %></p>
+                                    <p class="card-price">Price: $<%= product.price %></p>
+                                    <a href="/add-to-cart/<%= product._id %>" class="margin-button btn btn-primary">Add to Cart</a>
+                                    <button class="btn btn-success">Buy Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            <% }) %>
+        </div>
+    </div>
+</content>

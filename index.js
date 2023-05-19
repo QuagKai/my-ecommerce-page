@@ -181,3 +181,13 @@ app.get('/product/:id', (req, res) => {
         res.redirect('/all-products')
     });
 })
+
+app.get('/vendor/:name', (req, res) => {
+    Products.findOne({creator: req.params.name})
+    .then((product) => {
+        res.render('vendor',{creatorProduct : product})
+    })
+    .catch((error) => {
+        res.redirect('/all-vendors')
+    });
+})
