@@ -16,7 +16,7 @@ const setLogin = require('./middleware/setLogin');
 const addtoCart = require('./middleware/addtoCart.js')
 // const setSignup = require('./middleware/setSignup');
 const { authRegister, authLogin, authRoleVendor, authRoleShipper, authRoleCustomer } = require('./middleware/Auth');
-const products = require('./model/products');
+const Carts = require('./model/carts');
 
 //set up for mongoose
 const port = 3000;
