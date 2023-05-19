@@ -124,7 +124,7 @@ app.get('/logout', (req, res, next) => {
 });
 
 app.get('/all-products', (req, res) => {
-    Products.find()
+    Products.find({onsale: "true"})
     .then((products) => {
         res.render('all-products', {products: products});
     })
