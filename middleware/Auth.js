@@ -3,18 +3,40 @@ const bcrypt = require('bcrypt');
 const setLogin = require('./setLogin');
 
 const authRegister = async (req, res, next) => {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    try {
+        const { name, username, password, role } = req.body;
     
-    const data = {
-        name:req.body.name,
-        username:req.body.username,
-        password:hashedPassword,
-        role: req.body.role
+        // Validate the request body
+        if (!name || !username || !password || !role) {
+          return res.status(400).json({ error: 'Missing required fields' });
+        }
+    
+        // Create a new user instance
+        const newUser = new User({
+          name,
+          username,
+          password,
+          role,
+        });
+    
+        // Save the user to the database
+        await newUser.save()
+    
+        .then(() => { 
+            next()
+            }
+        );
+        } catch (error) {
+        // Check for validation errors
+        if (error.name === 'ValidationError') {
+          const errors = Object.values(error.errors).map((err) => err.message);
+          return res.status(400).json({ error: errors.join('\n') });
+        }
+    
+        console.error(error);
+        res.status(500).json({ error: 'Failed to register user' });
     }
-    await User.insertMany([data])
-
     setLogin(req, res, next);
-
 };
 
 const authRoleVendor = (req, res, next) => {
