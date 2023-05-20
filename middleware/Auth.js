@@ -28,13 +28,8 @@ const authRegister = async (req, res, next) => {
         );
         } catch (error) {
         // Check for validation errors
-        if (error.name === 'ValidationError') {
-          const errors = Object.values(error.errors).map((err) => err.message);
-          return res.status(400).json({ error: errors.join('\n') });
-        }
-    
         console.error(error);
-        res.status(500).json({ error: 'Failed to register user' });
+        res.status(500).json({ error: error.message });
     }
     setLogin(req, res, next);
 };

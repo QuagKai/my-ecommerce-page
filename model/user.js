@@ -12,7 +12,8 @@ const userSchema = new mongoose.Schema({
         validate: {
             validator: function (value) {
             return /^[a-zA-Z0-9]{8,15}$/.test(value);
-            }
+            },
+            message: 'Invalid username format',
         }
     },
     password: {
@@ -21,7 +22,8 @@ const userSchema = new mongoose.Schema({
         validate: {
             validator: function (value) {
                 return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/.test(value);
-            }
+            },
+            message: 'Invalid password format',
         },
     },
     role: {
