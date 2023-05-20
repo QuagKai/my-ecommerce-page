@@ -1,73 +1,131 @@
 <content class="mt-5">
     <div class="container py-5 justify-content-center">
-        <form>
-            <div class="row">
-                <div class="col-md-8 order-md-1">
-                    <h4 class="mb-3">Billing address</h4>
-                    <div class="form-group my-3">
-                        <label for="name">Your Full Name:</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
+        <div class="row">
+            <div class="col-md-8 order-md-1">
+                <h4 class="mb-3">Billing address</h4>
+                <div class="form-group my-3">
+                    <label for="name">Your Full Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-group my-3">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="Ex. 1234 Main St" required>
+                </div>
+                <div class="row my-3">
+                    <div class="col-md-5 mb-3">
+                        <label for="country">Choose your country:</label>
+                        <select class="form-select" id="country" name="country" aria-label="category">
+                            <option value="United States">United States</option>
+                            <option value="Vietnam">Vietnam</option>
+                        </select>
                     </div>
-                    <div class="form-group my-3">
-                        <label for="address">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" placeholder="Ex. 1234 Main St" required>
-                    </div>
-                    <div class="row my-3">
-                        <div class="col-md-5 mb-3">
-                            <label for="country">Choose your country:</label>
-                            <select class="form-select" id="country" name="country" aria-label="category">
-                                <option value="United States">United States</option>
-                                <option value="Vietnam">Vietnam</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="storage">Shipping from storage:</label>
-                            <select class="form-select" id="storage" name="storage" aria-label="category">
-                                <option value="storage1">Storage #1</option>
-                                <option value="storage2">Storage #2</option>
-                            </select>
-                        </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="storage">Shipping from storage:</label>
+                        <select class="form-select" id="storage" name="storage" aria-label="category">
+                            <option value="storage1">Storage #1</option>
+                            <option value="storage2">Storage #2</option>
+                        </select>
                     </div>
                 </div>
-            </div>    
-            <div class="container my-3 bg-light">
-                <h1 class="mb-4">Your Cart</h1>
-                <div class="row">
-                    <div class="col-3"><p class="m-0 p-0 fs-5 fw-bold">Item</p></div>
-                    <div class="col-5"><p class="m-0 p-0 fs-5 fw-bold">Name of item</p></div>
-                    <div class="col-2"><p class="m-0 p-0 fs-5 fw-bold text-end">Quantity</p></div>
-                    <div class="col-2"><p class="m-0 p-0 fs-5 fw-bold text-end">Price</p></div>
-                </div>
-                <div class="container border border-dark my-2"></div>
+            </div>
+        </div>
 
+        <div class="container my-3 bg-light">
+            <h1 class="mb-4">Your Cart</h1>
+            <div class="row">
+                <div class="col-3"><p class="m-0 p-0 fs-5 fw-bold">Item</p></div>
+                <div class="col-5"><p class="m-0 p-0 fs-5 fw-bold">Name of item</p></div>
+                <div class="col-2"><p class="m-0 p-0 fs-5 fw-bold text-end">Quantity</p></div>
+                <div class="col-2"><p class="m-0 p-0 fs-5 fw-bold text-end">Price</p></div>
+            </div>
+            <div class="container border border-dark my-2"></div>
+            <% for(let i = 0; i < cart.items.length; i++) { %>
                 <div class="row">
                     <div class="col-3 item-image" style="height: 10rem;">
                         <img src="AI0083-900_A.jpeg" alt="shirt">
                     </div>
                     <div class="col-5">
-                        <p class="m-0 p-0 text-start">Product 1</p>
+                        <p class="m-0 p-0 text-start"><%= cart.items[i].name %></p>
                     </div>
                     <div class="col-2 justify-self-left">
                         <div class="input-group w-auto justify-content-end align-items-center">
-                            <input type="number" step="1" max="10" value="1" name="quantity" class="active border-0 text-center w-25">
+                            <input type="number" step="1" max="10" value="<%= cart.items[i].qty %>" name="quantity" data-id="<%= cart.items[i]._id %>" class="active border-0 text-center w-25 quantity-input">
+                            <button class="btn btn-sm btn-secondary quantity-up" data-id="<%= cart.items[i]._id %>">+</button>
+                            <button class="btn btn-sm btn-secondary quantity-down" data-id="<%= cart.items[i]._id %>">-</button>
                         </div>
                     </div>
                     <div class="col-2">
-                        <p class="m-0 p-0 text-end">Price</p>
+                        <p class="m-0 p-0 text-end">Price: $<%= cart.items[i].price * cart.items[i].qty %></p>
                     </div>
                 </div>
-                
-                
-            
-            </div>
-            <div class="row my-4 d-flex">
-                <div class="col-5">
+            <% } %>                                     
+        </div>
+        <div class="row my-4 d-flex">
+            <div class="col-5">
                 <a href="/all-products" class="btn btn-primary">Continue Shopping</a>
-                </div>
-                <div class="col-5 ms-auto">
-                <button type="submit" class="btn btn-success form-control">Checkout</button>
-                </div>
             </div>
-        </form>
+            <div class="col-5 ms-auto">
+                <button class="btn btn-success form-control" onclick="checkout()">Checkout</button>
+            </div>
+        </div>
     </div>
 </content>
+<script>
+  function checkout() {
+    console.log('Checkout button clicked');
+    const storageOption = document.getElementById('storage').value;
+    $.ajax({
+      url: '/update-cart',
+      method: 'POST',
+      data: JSON.stringify({ checkout: true, storage: storageOption }),
+      contentType: 'application/json',
+      success: function (response) {
+        console.log('Checkout successful:', response.cart);
+      },
+      error: function (xhr, status, error) {
+        console.error('Failed to checkout:', error);
+      }
+    });
+  }
+
+  function updateQuantity(productId, quantity) {
+    console.log('productId:', productId);
+    console.log('quantity:', quantity);
+    $.ajax({
+        url: '/update-quantity',
+        method: 'POST',
+        data: JSON.stringify({ productId: productId, quantity: quantity }),
+        contentType: 'application/json',
+        success: function (response) {
+        console.log('Quantity updated in the database');
+        // Update the displayed price based on the updated quantity
+        const price = response.cart.items.find(item => item._id === productId).price;
+        const updatedPrice = price * quantity;
+        $(`.price-${productId}`).text(`Price: $${updatedPrice}`);
+        },
+        error: function (xhr, status, error) {
+        console.error('Failed to update quantity in the database:', error);
+        }
+    });
+    }
+
+    $('.quantity-up').click(function () {
+    const productId = $(this).data('id');
+    const input = $(this).siblings('.quantity-input');
+    const currentQuantity = parseInt(input.val());
+    const newQuantity = currentQuantity + 1;
+    input.val(newQuantity);
+    updateQuantity(productId, newQuantity);
+    });
+
+    $('.quantity-down').click(function () {
+    const productId = $(this).data('id');
+    const input = $(this).siblings('.quantity-input');
+    const currentQuantity = parseInt(input.val());
+    const newQuantity = currentQuantity - 1;
+    if (newQuantity >= 0) {
+        input.val(newQuantity);
+        updateQuantity(productId, newQuantity);
+    }
+    });
+</script>

@@ -1,43 +1,48 @@
 const Products = require('../model/products');
 const Cart = require('../model/carts');
+const { findOneByOwnerID } = require('../model/carts');
+
 
 const addtoCart = async (req, res, next) => {
-    const productId = req.params.id;
-    const usersession = req.session.user;
+  const productId = req.params.id;
+  const usersession = req.session.user;
 
-    if (!usersession) {
-        return res.redirect('/login');
+  if (!usersession) {
+    return res.redirect('/login');
+  }
+
+  if (usersession.role !== 'customer') {
+    console.log('Only customers can add items to the cart');
+  }
+
+  try {
+    let productsinDB = await Products.findById(productId);
+    if (!productsinDB) {
+      console.log('Item does not exist');
+    } else {
+      console.log('Item exists');
     }
 
-    if (usersession.role !== 'customer') {
-        console.log('Only customer can add to cart');
+    let existedCart = await Cart.findOneByOwnerID(usersession.id);
+    if (!existedCart) {
+      existedCart = new Cart({ cartOwnerID: usersession.id });
+      console.log('Cart created');
+    } else {
+      console.log('Cart exists');
     }
 
-    try {
-        let productsinDB = await Products.findById(productId);
-        if (!productsinDB) {
-            console.log('Item does not exist');
-        } else {
-            console.log('Item exists');
-        }
+    await existedCart.addItemtoCart(productsinDB);
+    console.log(existedCart.items);
+    await existedCart.save();
 
-        let existedCart = await Cart.findOne({ cartOwnerID: usersession.id });
-        if (!existedCart) {
-            existedCart = new Cart({ cartOwnerID: usersession.id });
-            console.log('Cart created');
-        } else {
-            console.log('Cart exists');
-        }
+    // Pass the cart data to the view
+    res.locals.cart = existedCart;
 
-        await existedCart.addItemtoCart(productsinDB, usersession);
-        console.log(existedCart.getItemfromCart());
-        await existedCart.save();
-
-        next();
-    } catch (error) {
-        console.log('Error adding item to cart:', error);
-        next(error);
-    }
+    next();
+  } catch (error) {
+    console.log('Error adding item to cart:', error);
+    next(error);
+  }
 };
 
 module.exports = addtoCart;
