@@ -11,8 +11,9 @@
 
 const multer = require('multer');
 
+//Fucntion turn image data to data saved on mongodb
 const storage = multer.diskStorage({
-    destination : (req, file, cb) => {
+    destination : (req, file, cb) => { //Cheking file type jpg, png, jpeg
         if( file.mimetype === 'image/jpg'||
             file.mimetype === 'image/png'||
             file.mimetype === 'image/jpeg') {
@@ -21,7 +22,7 @@ const storage = multer.diskStorage({
             cb(new Error('not image', false))
         }
     },
-    filename : (req, file, cb) => {
+    filename : (req, file, cb) => { //Create unique name for each image upload even if they are same images
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
         cb(null, uniqueSuffix + '-' + file.originalname);
     }

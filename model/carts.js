@@ -12,6 +12,7 @@
 
 const mongoose = require('mongoose');
 
+//Cart model
 const cartSchema = new mongoose.Schema({
   cartOwnerID: {
     type: String,
@@ -56,6 +57,8 @@ const cartSchema = new mongoose.Schema({
   },
 });
 
+
+//method to add items to cart
 cartSchema.methods.addItemtoCart = async function (productsinDB) {
   if (isNaN(this.Qty)) {
     this.Qty = 0;
@@ -84,6 +87,7 @@ cartSchema.methods.addItemtoCart = async function (productsinDB) {
   return this.save();
 };
 
+//retrieve cart
 cartSchema.methods.getItemfromCart = function () {
   return this;
 };

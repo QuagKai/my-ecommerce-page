@@ -10,6 +10,7 @@
 
 const mongoose = require('mongoose');
 
+//product model
 const productSchema = new mongoose.Schema({
     name: {
         type: String,

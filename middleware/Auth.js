@@ -8,25 +8,29 @@
 // Ngo Quang Khai  (s3975831)              
 // Acknowledgement: Boostrap v5.0+, ExpressJS, NodeJS, MongoDB, Ejs, Bcrypt, Multer, Express-session, Connect-Mongo
 
+
+//require model, function and package
 const User = require('../model/user')
 const bcrypt = require('bcrypt');
 const setLogin = require('./setLogin');
 
 const authRegister = async (req, res, next) => {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const hashedPassword = await bcrypt.hash(req.body.password, 10); //For encrypted password
     
-    const data = {
+    //take all data from the form
+    const data = { 
         name:req.body.name,
         username:req.body.username,
         password:hashedPassword,
         role: req.body.role
     }
-    await User.insertMany([data])
+    await User.insertMany([data]) // create User
 
-    setLogin(req, res, next);
+    setLogin(req, res, next);   //atached user info (no password) to current session
 
 };
 
+//Role vendors checking
 const authRoleVendor = (req, res, next) => {
     authLogged(req, res, () => {
         if (req.session.user.role === 'vendors') {
@@ -42,7 +46,7 @@ const authRoleVendor = (req, res, next) => {
     //     res.status(401).send('You do not have vendor role to access on this page')
     // }
 };
-
+//Role shippers checking
 const authRoleShipper = (req, res, next) => {
     authLogged(req, res, () => {
         if (req.session.user.role === 'shippers') {
@@ -53,12 +57,14 @@ const authRoleShipper = (req, res, next) => {
     })
 };
 
+
+//Login Authentication
 const authLogin = async (req, res, next) => {
     try {
-        const check = await User.findOne({
+        const check = await User.findOne({ //find the user with same username
                 username:req.body.username
         })
-        if(bcrypt.compare(check.password, req.body.password)) {
+        if(bcrypt.compare(check.password, req.body.password)) { // Checking the password with the encrypted passwork with bcryot package
             next()
         } else {
             res.send('Wrong password')
@@ -69,6 +75,7 @@ const authLogin = async (req, res, next) => {
     }
 }
 
+//Check for the current user have logged in or not 
 const authLogged = async (req, res, next) => {
     if (req.session && req.session.user && req.session.user.role) {
         next();
@@ -77,6 +84,7 @@ const authLogged = async (req, res, next) => {
     }
 }
 
+//Role check for customers
 const authRoleCustomer = (req, res, next) => {
     authLogged(req, res, () => {
         if (req.session.user.role === 'customers') {

@@ -18,11 +18,12 @@
 
 const User = require('../model/user');
 
+//Attach user info (no password) into session
 const loginSet = async(req, res, next) => {
-    const check = await User.findOne({
+    const check = await User.findOne({      //Find a user by username from the input value before
         username:req.body.username
     })
-    req.session.user = {
+    req.session.user = {        //Attach user info with found data
         id: check._id.toString(),
         name: check.username,
         role: check.role

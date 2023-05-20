@@ -11,11 +11,13 @@
 
 const Products = require('../model/products');
 
+
+//Eelete product function
 const deleteProducts = async(req, res, next) => {
-    await Products.findByIdAndDelete(req.params.id)
+    await Products.findByIdAndDelete(req.params.id) //Find the product by _id on mongodb
     .then((product) => {
       if (!product) {
-        return res.send("Problem in deleting product");
+        return res.send("Problem in deleting product"); //handle error part
       }
       res.redirect("/vendoronly");
     })

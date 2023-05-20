@@ -8,10 +8,13 @@
 // Ngo Quang Khai  (s3975831)
 // Acknowledgement: Boostrap v5.0+, ExpressJS, NodeJS, MongoDB, Ejs, Bcrypt, Multer, Express-session, Connect-Mongo
 
+//Require model
 const Products = require('../model/products');
 
+
+//Edit product information function
 const updateProducts = async(req, res, next) => {
-    const newProduct = {
+    const newProduct = {    //Take all the info in a modal dialog and you have to upload image every single time you want to update your product
         name: req.body.name,
         gender: req.body.gender,
         descrip: req.body.descrip,
@@ -25,8 +28,8 @@ const updateProducts = async(req, res, next) => {
         onsale: req.body.onsales,
     }
     console.log(req.params.id);
-    await Products.findByIdAndUpdate( req.params.id, newProduct)
-    .then(() => res.redirect('/vendoronly'))
+    await Products.findByIdAndUpdate( req.params.id, newProduct) //Find product with _id in the achor link
+    .then(() => res.redirect('/vendoronly'))    //Handle error part
     .catch(() => res.redirect('/vendoronly'));
     next();
 };
