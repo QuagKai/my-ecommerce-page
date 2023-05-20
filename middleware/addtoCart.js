@@ -1,5 +1,5 @@
 const Products = require('../model/products');
-const Cart = require('../model/carts');
+const { Cart } = require('../model/carts');
 
 const addtoCart = async (req, res, next) => {
     const productId = req.params.id;
@@ -21,7 +21,7 @@ const addtoCart = async (req, res, next) => {
             console.log('Item exists');
         }
 
-        let existedCart = await Cart.findOne({ cartOwnerID: usersession.id });
+        let existedCart = await Cart.findOneByOwnerID(usersession.id);
         if (!existedCart) {
             existedCart = new Cart({ cartOwnerID: usersession.id });
             console.log('Cart created');

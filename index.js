@@ -16,7 +16,7 @@ const setLogin = require('./middleware/setLogin');
 const addtoCart = require('./middleware/addtoCart.js')
 // const setSignup = require('./middleware/setSignup');
 const { authRegister, authLogin, authRoleVendor, authRoleShipper, authRoleCustomer } = require('./middleware/Auth');
-const Carts = require('./model/carts');
+const { Cart } = require('./model/carts');
 
 //set up for mongoose
 const port = 3000;
@@ -159,15 +159,71 @@ app.get('/:id/delete', deleteProducts, (req,res) => {
 app.get('/add-to-cart/:id', addtoCart, (req, res, next) => {
     console.log('addtoCart function loop');
     res.sendStatus(200);
-});
+  });
+  
+  app.get('/cart', authRoleCustomer, async (req, res) => {
+        const usersession = req.session.user;
+        if (!usersession) {
+            return res.redirect('/login');
+        }
+    
+        const cart = await Cart.findOneByOwnerID(usersession.id);
+    
+        if (cart)
+            console.log('Cart exists')
+        else {
+            cart = new Cart({ cartOwnerID: usersession.id });
+            console.log('New cart created');
+        }
+        return res.render('yourcart', { yourcart : cart });
+        console.log('Error retrieving cart:', error);
+        res.redirect('/error');
+  });
+  
+  app.post('/update-cart', (req, res) => {
+    const { productId, quantity, checkout, storage } = req.body;
+  
+    Cart.findOneByOwnerID(req.session.user.id)
+      .then((cart) => {
+        const cartItem = cart.items.find((item) => item.id.toString() === productId);
 
-app.get('/cart', authRoleCustomer, (req,res) => {
-    res.render('yourcart')
-});
+        if (cartItem) {
+          cartItem.qty = quantity;
+        }
 
-app.listen(port, () => {
-    console.log(`Listening to port: ${port}`)
-});
+        cart.Qty = cart.items.reduce((totalQty, item) => totalQty + item.qty, 0);
+        cart.totalPrice = cart.items.reduce((totalPrice, item) => totalPrice + item.qty * item.price, 0);
+  
+        if (checkout) {
+          cart.storageUpdater(storage);
+          cart.checkout(true);
+        }
+  
+        return cart.save();
+      })
+      .then((updatedCart) => {
+        res.json({ cart: updatedCart });
+      })
+      .catch((error) => {
+        console.error('Failed to update cart:', error);
+        res.status(500).json({ error: 'Failed to update cart' });
+      });
+  });
+    
+  app.post('/update-quantity', async (req, res) => {
+    try {
+      const { productId, quantity } = req.body;
+  
+      const cart = await Cart.findOneByOwnerID(req.session.user.id);
+  
+      await cart.updateItemQuantity(productId, quantity);
+  
+      res.json({ cart });
+    } catch (error) {
+      console.error('Failed to update quantity in the database:', error);
+      res.status(500).json({ error: 'Failed to update quantity in the database' });
+    }
+  });  
 
 app.get('/all-vendor', (req, res) => {
     Products.find()
@@ -202,3 +258,7 @@ app.get('/vendor', (req, res) => {
 app.get('shipperhub/storage1', (req,res) => {
     res.render('storage1')
 })
+
+app.listen(port, () => { 
+    console.log(`Server is running on port ${port}`);
+});
